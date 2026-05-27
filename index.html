@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRL SYSTEM | Kamar Broadcast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #000000;
+            --bg-card: #0a0a0a;
+            --border: #262626;
+            --accent: #00ffcc;
+            --accent-hover: #00e6b8;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+        }
+
+        body { margin: 0; padding: 0; background-color: var(--bg-base); color: var(--text-main); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 204, 0.3); }
+            100% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.1); }
+        }
+
+        .fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* NAVBAR */
+        nav { padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--accent); font-weight: 400; font-size: 0.95rem; display: block; letter-spacing: 2px; margin-top: -4px; }
+        .btn-contact-nav { background: transparent; border: 1px solid var(--border); color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .btn-contact-nav:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 15px rgba(0,255,204,0.2); }
+
+        /* HERO SECTION */
+        .hero { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #0a1c1a 0%, #000000 70%); }
+        .badge { background: rgba(0, 255, 204, 0.1); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(0, 255, 204, 0.2); margin-bottom: 20px; letter-spacing: 1px; }
+        .hero h1 { font-size: 5rem; font-weight: 900; margin: 0 0 10px 0; line-height: 1; letter-spacing: -1px; }
+        
+        /* KLIK BY KAMAR BROADCAST */
+        .hero .byline { margin-bottom: 25px; }
+        .hero .byline a { font-size: 1.2rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 4px; text-decoration: none; transition: 0.3s; }
+        .hero .byline a:hover { color: #fff; text-shadow: 0 0 10px var(--accent); }
+        
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 0 45px 0; line-height: 1.6; }
+
+        /* DOWNLOAD BUTTON */
+        .btn-download { background: var(--accent); color: #000; text-decoration: none; padding: 18px 40px; border-radius: 8px; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; gap: 12px; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); }
+        .btn-download:hover { background: var(--accent-hover); transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5); }
+        .btn-download svg { width: 24px; height: 24px; }
+        .sys-req { display: block; margin-top: 15px; font-size: 0.85rem; color: #525252; font-weight: 500; }
+
+        /* SEKSI ALUR KERJA (HP KE PC) */
+        .flow-section { padding: 80px 20px; background: #030303; border-top: 1px solid var(--border); text-align: center; }
+        .flow-container { display: flex; justify-content: center; align-items: center; gap: 20px; max-width: 1100px; margin: 40px auto 0 auto; }
+        .flow-step { background: var(--bg-card); border: 1px solid var(--border); padding: 30px 20px; border-radius: 16px; width: 30%; position: relative; transition: 0.3s; }
+        .flow-step:hover { border-color: var(--accent); }
+        .flow-number { position: absolute; top: -15px; left: 20px; background: var(--accent); color: #000; font-weight: 900; font-size: 0.85rem; padding: 2px 10px; border-radius: 10px; }
+        .flow-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
+        .flow-step h4 { font-size: 1.1rem; margin: 0 0 10px 0; color: #fff; }
+        .flow-step p { font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+        .flow-arrow { color: var(--accent); font-size: 1.5rem; font-weight: 700; opacity: 0.5; }
+
+        /* PRICING SECTION */
+        .section-title { text-align: center; font-size: 2.2rem; font-weight: 800; margin-top: 60px; margin-bottom: 10px; }
+        .section-desc { text-align: center; color: var(--text-muted); font-size: 1rem; margin-bottom: 40px; }
+        
+        .pricing-container { display: flex; justify-content: center; gap: 25px; max-width: 900px; margin: 0 auto 80px auto; padding: 0 20px; perspective: 1000px; }
+        .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 35px 30px; width: 100%; max-width: 380px; position: relative; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        .price-card:hover { border-color: #404040; transform: translateY(-5px); }
+        .price-card.selected { border-color: var(--accent); transform: scale(1.05) translateY(-5px); z-index: 10; animation: pulseGlow 2s infinite; }
+        .price-card.featured::before { content: 'BEST VALUE'; position: absolute; top: -12px; right: 20px; background: var(--accent); color: #000; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; z-index: 2; }
+        
+        .price-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: #fff; transition: 0.3s; }
+        .price-card.selected .price-name { color: var(--accent); }
+        .price-amount { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 5px; }
+        .price-amount span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+        
+        .price-features { list-style: none; padding: 0; margin: 25px 0 35px 0; text-align: left; }
+        .price-features li { padding: 8px 0; font-size: 0.95rem; color: #d4d4d4; display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .price-features li::before { content: '✓'; color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+        
+        .btn-buy { display: block; text-align: center; background: #161616; border: 1px solid var(--border); color: #fff; text-decoration: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        .price-card.selected .btn-buy { background: var(--accent); color: #000; border-color: var(--accent); transform: scale(1.02); }
+        .price-card.selected .btn-buy:hover { background: var(--accent-hover); }
+
+        /* FEATURES SECTION */
+        .features { padding: 40px 50px 80px 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: var(--bg-card); padding: 35px 25px; border-radius: 16px; border: 1px solid var(--border); transition: 0.4s; }
+        .feature-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,255,204,0.05); }
+        .f-icon { width: 44px; height: 44px; background: rgba(0, 255, 204, 0.05); border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; color: var(--accent); transition: 0.3s; }
+        .feature-card:hover .f-icon { transform: scale(1.1) rotate(5deg); background: var(--accent); color: #000; }
+        .feature-card h3 { font-size: 1.15rem; margin: 0 0 12px 0; color: #fff; }
+        .feature-card p { color: var(--text-muted); font-size: 0.9rem; margin: 0; line-height: 1.6; }
+
+        /* FOOTER & SOSMED */
+        footer { text-align: center; padding: 50px 20px; border-top: 1px solid var(--border); color: #525252; font-size: 0.9rem; background: #030303; }
+        footer a.credit-link { color: var(--accent); text-decoration: none; font-weight: 600; transition: 0.3s; }
+        footer a.credit-link:hover { color: #fff; text-decoration: underline; }
+        
+        .social-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+        .social-btn { display: flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; padding: 8px 16px; border: 1px solid var(--border); border-radius: 30px; transition: 0.3s; background: var(--bg-card); }
+        .social-btn:hover { color: #fff; border-color: var(--accent); background: rgba(0,255,204,0.1); box-shadow: 0 0 15px rgba(0,255,204,0.2); }
+        .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.2rem; }
+            .flow-container { flex-direction: column; gap: 40px; }
+            .flow-step { width: 100%; box-sizing: border-box; }
+            .flow-arrow { transform: rotate(90deg); margin: -10px 0; }
+            .pricing-container { flex-direction: column; align-items: center; gap: 40px; }
+            .price-card { max-width: 100%; }
+            .price-card.selected { transform: scale(1.02) translateY(-5px); }
+            nav { padding: 20px; }
+            .features { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fade-in">
+        <div class="logo">IRL SYSTEM<span>BY KAMAR BROADCAST</span></div>
+        <a href="https://wa.me/6282140310421?text=Halo%20Admin,%20saya%20mau%20software%20IRL%20System" class="btn-contact-nav" target="_blank">Hubungi Admin</a>
+    </nav>
+
+    <section class="hero fade-in delay-1">
+        <div class="badge">🌟 OFFICIAL STABLE BUILD</div>
+        <h1>IRL SYSTEM</h1>
+        <div class="byline">
+            <a href="https://www.tiktok.com/@apann_20" target="_blank">by Kamar Broadcast</a>
+        </div>
+        <p>Solusi transmisi mutakhir yang menyulap <strong>kamera HP atau Mirrorless (via smartphone)</strong> Anda menjadi sumber siaran live streaming outdoor kelas profesional. Kirim visual langsung ke studio utama dengan stabil, aman, dan latensi ultra-rendah.</p>
+        
+        <a href="https://github.com/apunnnn/irl-system/releases/download/v1.0.0/irl-system.Setup.1.0.0.exe" class="btn-download" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download untuk Windows
+        </a>
+        <span class="sys-req">Kompatibel dengan Windows 10 / Windows 11 (64-bit)</span>
+    </section>
+
+    <section class="flow-section fade-in delay-2">
+        <div class="section-title" style="margin-top: 0;">Cara Kerja Sistem</div>
+        <div class="section-desc">Sangat sederhana. Hubungkan kamera lapangan langsung ke software broadcast komputer Anda.</div>
+        
+        <div class="flow-container">
+            <div class="flow-step">
+                <span class="flow-number">LANGKAH 1</span>
+                <span class="flow-icon">📱</span>
+                <h4>Kamera HP / Mirrorless</h4>
+                <p>Ambil video langsung dari lapangan menggunakan Smartphone (Android/iOS) atau Kamera Mirrorless yang tersambung ke HP.</p>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step">
+                <span class="flow-number">LANGKAH 2</span>
+                <span class="flow-icon">☁️</span>
+                <h4>Transmisi Awan (Cloud)</h4>
+                <p>Video dikirim secara real-time, instan, dan aman melewati jaringan internet tanpa perlu alat pemancar fisik yang berat.</p>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step">
+                <span class="flow-number">LANGKAH 3</span>
+                <span class="flow-icon">💻</span>
+                <h4>PC / Laptop Studio</h4>
+                <p>Aplikasi Klien IRL System di PC menerima siaran video, dan mendistribusikannya langsung ke vMix atau OBS Studio Anda.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade-in delay-2" style="background: #030303; padding-top: 20px; border-top: 1px solid var(--border);">
+        <div class="section-title">Paket Lisensi Sistem</div>
+        <div class="section-desc">Pilih durasi aktivasi, klik kartu pilihan Anda untuk melanjutkan pemesanan.</div>
+        
+        <div class="pricing-container">
+            <div class="price-card" onclick="selectPackage(this)" id="card-bulan">
+                <div>
+                    <div class="price-name">Paket Bulanan</div>
+                    <div class="price-amount">Rp 50rb <span>/ bulan</span></div>
+                    <ul class="price-features">
+                        <li>Akses Penuh 1 Studio (PC/Laptop)</li>
+                        <li>Transmisi Ultra-Low Latency</li>
+                        <li>Integrasi Mulus vMix & OBS Studio</li>
+                        <li>Bebas Batas Durasi Live Streaming</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/6282140310421?text=Halo%20Admin%20Kamar%20Broadcast,%20saya%20ingin%20order%20Paket%20Lisensi%201%20Bulan%20(Rp%2050.000)" class="btn-buy" target="_blank">Order Paket Bulanan</a>
+            </div>
+
+            <div class="price-card featured selected" onclick="selectPackage(this)" id="card-tahun">
+                <div>
+                    <div class="price-name">Paket Tahunan</div>
+                    <div class="price-amount">Rp 250rb <span>/ tahun</span></div>
+                    <ul class="price-features">
+                        <li>Akses Penuh 1 Studio (PC/Laptop)</li>
+                        <li>Transmisi Ultra-Low Latency (Prioritas)</li>
+                        <li>Fitur Real-Time Preview Sebelum Live</li>
+                        <li>Sinkronisasi Output Multi-Platform</li>
+                        <li>Bebas Batas Durasi Live Streaming</li>
+                        <li>VIP Support 24/7 Langsung Teknisi</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/6282140310421?text=Halo%20Admin%20Kamar%20Broadcast,%20saya%20ingin%20order%20Paket%20Lisensi%20Tahunan%201%20Tahun%20(Rp%20250.000)" class="btn-buy" target="_blank">Order Paket Tahunan</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade-in delay-3" style="border-top: 1px solid var(--border);">
+        <div class="section-title" style="margin-top: 80px;">Keunggulan Utama IRL System</div>
+        <div class="section-desc">Fokus pada konten dan momen live Anda, biarkan sistem kami yang menangani kelancaran transmisinya.</div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="f-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <h3>Setup Praktis & Cepat</h3>
+                <p>Langsung hubungkan HP atau kamera mirrorless Anda ke vMix atau OBS Studio dalam hitungan detik. Tanpa ribet mengatur IP atau konfigurasi server manual.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <h3>Performa Ringan (Bebas Lag)</h3>
+                <p>Aplikasi dirancang sangat ringan dan efisien. Dijamin tidak akan membebani kinerja PC atau Laptop studio Anda meskipun sedang live dalam resolusi tinggi.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+                <h3>Monitor Visual Real-Time</h3>
+                <p>Dilengkapi dengan fitur preview bawaan agar Anda bisa memastikan kualitas video, audio, dan stabilitas sinyal sebelum benar-benar menekan tombol Live.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="margin-bottom: 15px;">
+            &copy; 2026 Crafted with passion by 
+            <a href="https://www.tiktok.com/@apann_20" class="credit-link" target="_blank">Kamar Broadcast</a>.
+        </div>
+        
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@apann_20" target="_blank" class="social-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+                Kunjungi TikTok Kami
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        function selectPackage(clickedCard) {
+            document.querySelectorAll('.price-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            clickedCard.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
